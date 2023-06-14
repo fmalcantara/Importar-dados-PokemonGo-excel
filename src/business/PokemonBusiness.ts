@@ -1,19 +1,24 @@
-import { PokemonDatabase } from "../data/PokemonDatabase"
 import { CustomError } from "../error/cusstomError";
 import { InputDTO } from "../model/pokemon";
+import { PokemonRepository } from "./PokemonRepository";
 
-const pokemonDatabase = new PokemonDatabase()
 
 export class PokemonBusiness {
     
+  constructor(
+    private pokemonDatabase: PokemonRepository,
+  ){}
+
+
+
   public getAllPokemons = async (page: number) => {
       try {
-        if(!page || page ===0){
+        if(!page || page <= 0){
           page = 1;
         }
         const size = 30
         const offset = size * (Number(page) - 1)
-        const result = await pokemonDatabase.getAllPokemon(offset)
+        const result = await this.pokemonDatabase.getAllPokemon(offset)
         return result
       } catch (error:any) {
         throw new CustomError(error.statusCode, error.message);
@@ -26,7 +31,7 @@ export class PokemonBusiness {
           throw new Error("Name not found!!"); 
         }
 
-        const result = await pokemonDatabase.getPokemonByName(name)
+        const result = await this.pokemonDatabase.getPokemonByName(name)
         if(result === undefined){
           throw new Error("This pokemon does not exist!!"); 
         }
@@ -43,7 +48,7 @@ export class PokemonBusiness {
           throw new Error("This pokemon was not found. You must enter a valid type! "); 
         }
 
-        const result = await pokemonDatabase.getPokemonByType(type)
+        const result = await this.pokemonDatabase.getPokemonByType(type)
         
         if(result === undefined){
           throw new Error("Non-existent type");
@@ -67,7 +72,7 @@ export class PokemonBusiness {
           throw new Error("Type does not exist, please enter a valid type");  
         }
 
-        const result = await pokemonDatabase.getPokemonTwoTypes(input)
+        const result = await this.pokemonDatabase.getPokemonTwoTypes(input)
         return result
       } 
       catch (error: any) {
@@ -78,7 +83,7 @@ export class PokemonBusiness {
 
   public countAllPokemons=async():Promise<any>=>{
     try {
-      const result = await pokemonDatabase.countAllPokemons()
+      const result = await this.pokemonDatabase.countAllPokemons()
       return result
       
     } 
