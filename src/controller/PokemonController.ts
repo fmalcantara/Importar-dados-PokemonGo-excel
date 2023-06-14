@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
 import { PokemonBusiness } from "../business/PokemonBusiness";
-import { CustomError } from "../error/cusstomError";
 import { InputDTO } from "../model/pokemon";
 
-const pokemonBusiness = new PokemonBusiness
-
 export class PokemonController {
-  
+    constructor(
+      private pokemonBusiness: PokemonBusiness
+    ){}
+
+
   public getAllPokemon = async(req: Request, res:Response) =>{
       try {
         const page: number = req.body.page;
-        const result = await pokemonBusiness.getAllPokemons(page)
+        const result = await this.pokemonBusiness.getAllPokemons(page)
         res.status(200).send(result)
       } 
       catch (error:any) {
@@ -21,7 +22,7 @@ export class PokemonController {
   public getPokemonByName= async(req: Request, res:Response) =>{
     try {
       const name: string = req.params.name
-      const result = await pokemonBusiness.getPokemonByName(name)
+      const result = await this.pokemonBusiness.getPokemonByName(name)
       res.status(200).send(result)
     } 
     catch (error:any) {
@@ -32,7 +33,7 @@ export class PokemonController {
   public getPokemonByType = async(req: Request, res: Response)=>{
     try {
     const type: string = req.params.type
-    const result = await pokemonBusiness.getPokemonByType(type)
+    const result = await this.pokemonBusiness.getPokemonByType(type)
     res.status(200).send(result)
     } 
     catch (error:any) {
@@ -46,7 +47,7 @@ export class PokemonController {
         type1: req.body.type1,
         type2: req.body.type2
       }
-      const result = await pokemonBusiness.getPokemonTwoTypes(input)
+      const result = await this.pokemonBusiness.getPokemonTwoTypes(input)
       res.status(200).send(result)
     } 
     catch (error:any) {
@@ -56,8 +57,9 @@ export class PokemonController {
 
   public countAllPokemons=async(req: Request, res: Response):Promise<void>=>{
     try {
-      const result = await pokemonBusiness.countAllPokemons()
+      const result = await this.pokemonBusiness.countAllPokemons()
       res.status(200).send(result)
+      
       console.log(result);
       
     } 

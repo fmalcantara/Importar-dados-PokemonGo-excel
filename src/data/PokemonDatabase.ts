@@ -1,7 +1,7 @@
 import { InputDTO } from "../model/pokemon";
 import { BaseDatabase } from "./BaseDatabase";
 
-export class PokemonDatabase extends BaseDatabase{
+export class PokemonDatabase extends BaseDatabase implements PokemonDatabase{
   private table = 'Pokemon-Go_esse'
 
     public getAllPokemon = async(offset: number):Promise<number[]>=>{
