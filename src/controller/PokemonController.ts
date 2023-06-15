@@ -10,8 +10,8 @@ export class PokemonController {
 
   public getAllPokemon = async(req: Request, res:Response) =>{
       try {
-        const page: number = req.body.page;
-        const result = await this.pokemonBusiness.getAllPokemons(page)
+        const numberPage: number = req.body.page;
+        const result = await this.pokemonBusiness.getAllPokemons(numberPage)
         res.status(200).send(result)
       } 
       catch (error:any) {
