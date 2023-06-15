@@ -13,5 +13,6 @@ pokemonRouter.get('/allpokemon',(req,res) => pokemonController.getAllPokemon (re
 pokemonRouter.get('/:name',(req,res) => pokemonController.getPokemonByName(req,res))
 pokemonRouter.get('/types/:type',(req,res) => pokemonController.getPokemonByType(req,res))
 pokemonRouter.get('/2type/pokemon',(req,res) => pokemonController.getPokemonTwoTypes(req,res))
-pokemonRouter.get('/count',(req,res) => pokemonController.countAllPokemons(req,res))
+pokemonRouter.get('/count/allpokemons',(req,res) => pokemonController.countAllPokemons(req,res))
+pokemonRouter.delete('/delete/:id',(req,res) => pokemonController.deletePokemon(req,res))
 

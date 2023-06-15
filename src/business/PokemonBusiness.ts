@@ -89,14 +89,30 @@ export class PokemonBusiness {
     } 
     catch (error:any) {
       throw new CustomError(error.statusCode, error.message);
-      }
-    
-    
-    
-    
+      } 
   }
 
+  public deletePokemon=async(id: number)=>{
+    try {
+      if(!id || id <= 0 || id >=823) {
+        throw new Error("Invalid ID. The id's can only be numbers from 1 to 822.");   
+      }
 
+      if(id === undefined || id === null) {
+        throw new Error("Pokeon already deleted");   
+      }
+
+      // const getAllPokemon = await this.getAllPokemons(id);
+      // const checkPokemon = getAllPokemon.find(p => p.Id === id);
+
+      const result = await this.pokemonDatabase.deletePokemon(id);
+      return result
+    } 
+    catch (error:any) {
+      throw new CustomError(error.statusCode, error.message);
+      
+    }
+  }
 
 
 

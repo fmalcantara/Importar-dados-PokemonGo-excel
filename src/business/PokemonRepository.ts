@@ -6,6 +6,7 @@ export interface PokemonRepository {
   getPokemonByType(type: string):Promise<string[]>  
   getPokemonTwoTypes (input: InputDTO):Promise<string[]>
   countAllPokemons():Promise<any>
+  deletePokemon (id: number):Promise<number>
   }
   
 
