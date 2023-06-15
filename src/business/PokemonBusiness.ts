@@ -11,14 +11,14 @@ export class PokemonBusiness {
 
 
 
-  public getAllPokemons = async (page: number) => {
+  public getAllPokemons = async (numberPage: number) => {
       try {
-        if(!page || page <= 0){
-          page = 1;
+        if(!numberPage || numberPage <= 0){
+          numberPage = 1;
         }
         const size = 30
-        const offset = size * (Number(page) - 1)
-        const result = await this.pokemonDatabase.getAllPokemon(offset)
+        const page = size * (Number(numberPage) - 1)
+        const result = await this.pokemonDatabase.getAllPokemon(page)
         return result
       } catch (error:any) {
         throw new CustomError(error.statusCode, error.message);
@@ -84,8 +84,8 @@ export class PokemonBusiness {
   public countAllPokemons=async():Promise<any>=>{
     try {
       const result = await this.pokemonDatabase.countAllPokemons()
+      console.log(result)
       return result
-      
     } 
     catch (error:any) {
       throw new CustomError(error.statusCode, error.message);
