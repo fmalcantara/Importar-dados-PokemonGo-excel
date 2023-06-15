@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { PokemonBusiness } from "../business/PokemonBusiness";
-import { InputDTO } from "../model/pokemon";
+import { IdDTO, InputDTO } from "../model/pokemon";
 
 export class PokemonController {
     constructor(
@@ -59,13 +59,24 @@ export class PokemonController {
     try {
       const result = await this.pokemonBusiness.countAllPokemons()
       res.status(200).send(result)
-      
-      console.log(result);
-      
     } 
 
     catch (error: any) {
       res.status(error.statusCode || 400).send(error.message || error.sqlMessage)  
+    }
+  }
+
+  public deletePokemon=async(req: Request, res:Response)=>{
+    try {
+      const id: number= Number(req.params.id)
+      
+      await this.pokemonBusiness.deletePokemon(id)
+      res.status(200).send({message: "Pokemon Deleted !"})        
+
+
+    } catch (error:any) {
+      res.status(error.statusCode || 400).send(error.message || error.sqlMessage)  
+      
     }
   }
 

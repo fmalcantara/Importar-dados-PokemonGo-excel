@@ -57,11 +57,23 @@ export class PokemonDatabase extends BaseDatabase implements PokemonDatabase{
     public countAllPokemons = async():Promise<any> =>{
       try {
         const result = await PokemonDatabase.connection(this.table)
-        .count('*',{as: 'At the moment there is a total of:'})
+        .count('*',{as: `At the moment there is a total of:` })
         return result[0]
       } 
       catch (error:any) {
         throw new CustomError(400, error.message);  
       } 
+    }
+
+    public deletePokemon=async(id: number)=>{
+      try {
+        const result = await PokemonDatabase.connection(this.table)
+        .del()
+        .where('Id',id)
+        return result
+      } 
+      catch (error:any) {
+        throw new CustomError(400, error.message);    
+      }
     }
 }
