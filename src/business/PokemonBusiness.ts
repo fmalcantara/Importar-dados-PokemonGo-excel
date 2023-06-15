@@ -9,8 +9,6 @@ export class PokemonBusiness {
     private pokemonDatabase: PokemonRepository,
   ){}
 
-
-
   public getAllPokemons = async (numberPage: number) => {
       try {
         if(!numberPage || numberPage <= 0){
@@ -92,21 +90,18 @@ export class PokemonBusiness {
       } 
   }
 
-  public deletePokemon=async(id: number)=>{
+  public deletePokemon=async(id: any)=>{
     try {
       if(!id || id <= 0 || id >=823) {
         throw new Error("Invalid ID. The id's can only be numbers from 1 to 822.");   
       }
-
-      if(id === undefined || id === null) {
-        throw new Error("Pokeon already deleted");   
+      
+      const getAll = await this.pokemonDatabase.findPokemonById(id)
+      console.log(getAll);
+      if(getAll.length === 0){
+        throw new Error("Pokemon already deleted");
       }
-
-      // const getAllPokemon = await this.getAllPokemons(id);
-      // const checkPokemon = getAllPokemon.find(p => p.Id === id);
-
-      const result = await this.pokemonDatabase.deletePokemon(id);
-      return result
+     
     } 
     catch (error:any) {
       throw new CustomError(error.statusCode, error.message);

@@ -68,12 +68,25 @@ export class PokemonDatabase extends BaseDatabase implements PokemonDatabase{
     public deletePokemon=async(id: number)=>{
       try {
         const result = await PokemonDatabase.connection(this.table)
-        .del()
-        .where('Id',id)
+        .delete()
+        .where({Id: id})
         return result
       } 
       catch (error:any) {
         throw new CustomError(400, error.message);    
       }
     }
-}
+
+    public findPokemonById=async(id: number):Promise<string[]>=>{
+      try {
+        const result = await PokemonDatabase.connection(this.table)
+        .where('Id',id)
+        return result
+      } catch (error:any) {
+        throw new CustomError(400, error.message);    
+        
+      }
+    }
+
+      
+  }
