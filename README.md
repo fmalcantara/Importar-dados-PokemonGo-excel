@@ -7,6 +7,18 @@ Render: https://backend-pokemon-go.onrender.com
 
 🛠️Este case tem como objetivo criar uma API para fornecer informações dos pokemons cadastrados no banco de dados conforme orientações contidas na documentação deste projeto. As informações cadastradas no banco de dados foram extraídas de uma planilha de excel e transformadas em dados de tabelas relacionais MySQL.
 
+## 🛠️Funcionalidades da API
+  Esta API tem como funcionalidades:
+  - Retornar todos os pokemons cadastrados na base de dados.
+  
+  - Realizar a busca dos pokemons pelos seus devidos nomes digitados entrada da requisição.
+
+  - Realizar a busca dos pokemons pelos seus tipos, digitados na entrada da requisição.
+
+  - Retornar a quantidade total de pokemons na base de dados até o momento.
+
+  - Deletar um pokemon da base de dados.
+
 
 ## ⚛️Tecnologias Utilizadas
 
